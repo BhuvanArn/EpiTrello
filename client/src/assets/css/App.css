@@ -1,0 +1,15 @@
+.App {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  background: #f7f9fc;
+}
+
+.card-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  flex-wrap: wrap;
+}
