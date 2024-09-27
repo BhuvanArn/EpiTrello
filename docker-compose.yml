@@ -1,0 +1,50 @@
+
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "${CLIENT_PORT}:${CLIENT_PORT}"
+    volumes:
+      - ./client/src:/app/src
+    depends_on:
+      - server
+    restart: on-failure
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    command: node index.js
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - server-tier
+
+  db:
+    image: "postgres:15"
+    networks:
+      - server-tier
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./config/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: on-failure
+
+networks:
+  server-tier:
+
+volumes:
+  postgres_data:
