@@ -8,6 +8,7 @@ import './assets/css/App.css';
 import Main from './components/MainPage';
 import Login from './components/Login';
 import Footer from './components/Footer';
+import Signup from './components/Signup';
 
 function App() {
     const location = useLocation();
@@ -15,11 +16,11 @@ function App() {
 
     return (
         <div className="App">
-            {/* <Navbar /> */}
             <AnimatePresence mode='wait'>
                 <Routes location={location} key={location.pathname}>
                     <Route path="/" element={<Main />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
                 </Routes>
             </AnimatePresence>
             {!noFooterRoutes.includes(location.pathname) && <Footer />} {/* Conditionally render the Footer */}
