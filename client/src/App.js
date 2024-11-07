@@ -7,9 +7,11 @@ import './assets/css/App.css';
 // Components
 import Main from './components/MainPage';
 import Login from './components/Login';
+import Footer from './components/Footer';
 
 function App() {
-    const location = useLocation()
+    const location = useLocation();
+    const noFooterRoutes = ['/login', '/signup', '/forgot-password'];
 
     return (
         <div className="App">
@@ -20,6 +22,7 @@ function App() {
                     <Route path="/login" element={<Login />} />
                 </Routes>
             </AnimatePresence>
+            {!noFooterRoutes.includes(location.pathname) && <Footer />} {/* Conditionally render the Footer */}
         </div>
     );
 }
