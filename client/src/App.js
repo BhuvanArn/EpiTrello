@@ -5,8 +5,8 @@ import { AnimatePresence } from "framer-motion";
 import './assets/css/App.css';
 
 // Components
-import Navbar from './components/Navbar';
 import Main from './components/MainPage';
+import Login from './components/Login';
 
 function App() {
     const location = useLocation()
@@ -16,7 +16,8 @@ function App() {
             {/* <Navbar /> */}
             <AnimatePresence mode='wait'>
                 <Routes location={location} key={location.pathname}>
-                        <Route path="/" element={<Main />} />
+                    <Route path="/" element={<Main />} />
+                    <Route path="/login" element={<Login />} />
                 </Routes>
             </AnimatePresence>
         </div>
