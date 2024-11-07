@@ -10,6 +10,7 @@ let { db } = require("./config/db.js");
 
 const middlewares = [
     "./middleware/cors.js",
+    "./middleware/RedirectUserNotLogged.js",
 ];
 
 const routes = [
