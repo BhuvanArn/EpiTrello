@@ -6,9 +6,11 @@ require('dotenv').config();
 const { Loader } = require('./lib/loader.js');
 let { logger } = require("./config/logger.js");
 let { loadedRoutes } = require("./config/router.js");
+let { db } = require("./config/db.js");
 
-const middlewares = ["./middleware/cors.js"];
-const routes = ["./routes/auth.js"];
+const routes = [
+    "./routes/auth/Login.js",
+];
 
 function loadMiddleware(app)
 {
@@ -80,6 +82,10 @@ function loadRoute(app)
     process.on('SIGINT', function() {
         process.stdout.write('\b\b  \b\b');
 
+        db.close().catch(err => {
+            process.exit(1);
+        });
+
         logger.write("server stopped.");
         logger.log();
 
@@ -88,7 +94,7 @@ function loadRoute(app)
     });
 
     expressApp.listen(port, () => {
-        logger.write("server started.");
+        logger.write("Server started.");
         logger.log();
     });
 })();
