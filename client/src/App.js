@@ -10,6 +10,7 @@ import Login from './components/Login';
 import Footer from './components/Footer';
 import Signup from './components/Signup';
 import ForgotPassword from './components/ForgotPassword';
+import CompleteSetup from './components/CompleteSetup';
 
 function App() {
     const location = useLocation();
@@ -23,6 +24,7 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/complete-setup" element={<CompleteSetup />} />
                 </Routes>
             </AnimatePresence>
             {!noFooterRoutes.includes(location.pathname) && <Footer />} {/* Conditionally render the Footer */}
