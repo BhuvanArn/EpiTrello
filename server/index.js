@@ -8,8 +8,14 @@ let { logger } = require("./config/logger.js");
 let { loadedRoutes } = require("./config/router.js");
 let { db } = require("./config/db.js");
 
+const middlewares = [
+    "./middleware/cors.js",
+];
+
 const routes = [
     "./routes/auth/Login.js",
+    "./routes/auth/Signup.js",
+    "./routes/auth/CompleteSetup.js",
 ];
 
 function loadMiddleware(app)
