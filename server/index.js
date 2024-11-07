@@ -16,6 +16,7 @@ const routes = [
     "./routes/auth/Login.js",
     "./routes/auth/Signup.js",
     "./routes/auth/CompleteSetup.js",
+    "./routes/auth/VerifyEmail.js",
 ];
 
 function loadMiddleware(app)
