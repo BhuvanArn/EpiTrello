@@ -2,6 +2,7 @@ const { db } = require('../../../config/db');
 const { logger } = require("../../../config/logger");
 
 const { jwtDecode } = require('jwt-decode');
+const jwt = require('jsonwebtoken');
 
 async function googleSignup(req, res) {
     const { credential } = req.body;

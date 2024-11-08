@@ -115,3 +115,32 @@
 .login-form button {
     margin-top: 10px;
 }
+
+
+/* OAuth part */
+.login-oauth button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgb(193, 199, 208);
+    border-radius: 3px;
+    box-shadow: none;
+    background: rgb(255, 255, 255);
+    margin-bottom: 16px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-oauth button:hover {
+    background: rgb(245, 245, 245);
+}
+
+.login-oauth .svg-icon {
+    align-self: center;
+    margin-top: 9px;
+    margin-right: 6px;
+}
