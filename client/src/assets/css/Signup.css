@@ -77,7 +77,7 @@
     background-color: #520A5f;
 }
 
-.signup-form .additional-links {
+.additional-links {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -114,4 +114,58 @@
 
 .signup-form button {
     margin-top: 10px;
+}
+
+/* 'Sign up to continue' */
+.signup-header h2 {
+    font-size: 17px;
+    color: #515050;
+    margin: 0;
+    padding-top: 16px;
+}
+
+/* Oauth buttons */
+
+.signup-oauth {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 24px;
+}
+
+.signup-oauth h2 {
+    font-size: 14px;
+    color: #7e7e7e;
+    cursor: default;
+    margin-bottom: 16px;
+    margin-top: 0;
+}
+
+.signup-oauth button {
+    display: inline-flex;
+    justify-content: center;
+    width: 100%;
+    padding: 0px 10px;
+    height: 40px !important;
+    line-height: 40px !important;
+
+    border: 1px solid rgb(193, 199, 208);
+    border-radius: 3px;
+    box-shadow: none;
+    background: rgb(255, 255, 255);
+
+    margin-bottom: 16px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.signup-oauth button:hover {
+    background: rgb(245, 245, 245);
+}
+
+.signup-oauth .svg-icon {
+    align-self: center;
+    margin-top: 9px;
+    margin-right: 6px;
 }
