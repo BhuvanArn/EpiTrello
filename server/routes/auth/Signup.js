@@ -36,8 +36,35 @@ async function signup(req, res) {
         const mailOptions = {
             from: process.env.EMAIL_USER,
             to: email,
-            subject: 'Account Verification',
-            text: `Your verification code is: ${verificationCode}`,
+            subject: `Epitrello Account Verification (${verificationCode})`,
+            html: `
+                <div style="font-family: 'Poppins', sans-serif; text-align: center; background-color: #f4f5f7; padding: 20px;">
+                    <div style="background-color: #fff; padding: 32px 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); max-width: 400px; margin: auto;">
+                        <table style="width: 100%; margin-bottom: 20px;">
+                            <tr>
+                                <td style="text-align: right;">
+                                    <img src="cid:logo" alt="Trello Logo" style="width: 36px; margin: 8px 5px 0 0" />
+                                </td>
+                                <td style="text-align: left;">
+                                    <h2 style="font-size: 30px; color: #333; font-weight: bold; margin: 0;">EpiTrello</h2>
+                                </td>
+                            </tr>
+                        </table>
+                        <h1 style="font-size: 24px; color: #333; margin-bottom: 16px;">Account Verification</h1>
+                        <p style="font-size: 16px; color: #666; margin-bottom: 24px;">Your verification code is:</p>
+                        <div style="font-size: 24px; color: #333; font-weight: bold; margin-bottom: 24px;">${verificationCode}</div>
+                        <p style="font-size: 14px; color: #666;">Please enter this code to verify your email address.</p>
+                    </div>
+                    <div style="margin-top: 20px; font-size: 12px; color: #999;">
+                        &copy; ${new Date().getFullYear()} EpiTrello. All rights reserved.
+                    </div>
+                </div>
+            `,
+            attachments: [{
+                filename: 'trello.png',
+                path: __dirname + '/../../assets/trello.png',
+                cid: 'logo'
+            }]
         };
 
         transporter.sendMail(mailOptions, (error, info) => {
