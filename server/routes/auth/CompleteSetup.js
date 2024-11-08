@@ -4,16 +4,13 @@ const { db } = require('../../config/db');
 const { logger } = require("../../config/logger");
 
 async function completeSetup(req, res) {
-    const { fullName, password } = req.body;
+    const { fullName, password, email } = req.body;
 
     try {
         const client = db.getDB();
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Assuming the email is stored in the session or passed in the request
-        const email = req.session.email || req.body.email;
-
-        const result = await client.query('UPDATE "user" SET full_name = $1, password = $2 WHERE email = $3 RETURNING *', [fullName, hashedPassword, email]);
+        const result = await client.query('UPDATE "user" SET name = $1, password = $2 WHERE email = $3 RETURNING *', [fullName, hashedPassword, email]);
 
         if (result.rows.length > 0) {
             res.status(200).send({ message: 'Account setup complete' });
@@ -34,7 +31,7 @@ module.exports = {
             method: 'post',
             path: '/complete-setup',
             protected: false,
-            body: { "fullName": "text", "password": "text" },
+            body: { "fullName": "text", "password": "text", "email": "text" },
             callback: completeSetup
         }
     ]

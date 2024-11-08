@@ -53,3 +53,30 @@
 .complete-setup-form button:hover {
     background-color: #520A5f;
 }
+
+
+/* header with logo and title */
+.complete-setup-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Begin logo header */
+.complete-setup-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.complete-setup-logo-container h2 {
+    font-size: 30px;
+    color: #333;
+    font-weight: bold;
+}
+
+.complete-setup-logo-container img {
+    margin: 8px 5px 0 0;
+    width: 26px;
+}
+/* End of header with logo */

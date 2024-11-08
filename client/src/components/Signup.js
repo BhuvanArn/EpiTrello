@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 
-import { jwtDecode } from 'jwt-decode';
+// google oauth
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 
 import '../assets/css/Signup.css';
 
@@ -51,6 +51,10 @@ function Signup() {
 
             if (response.ok) {
                 alert('Email address verified');
+
+                // store email in session
+                sessionStorage.setItem('email', email);
+
                 navigate('/complete-setup');
             } else {
                 alert(`Invalid token: ${data.message}`);
@@ -61,21 +65,22 @@ function Signup() {
     };
 
     const handleGoogleLoginSuccess = async (response) => {
-        const decoded = jwtDecode(response.credential);
-        const gmail = decoded.email;
-
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_URL}/google-login`, {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/google-signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email: gmail }),
+                body: JSON.stringify({ credential: response.credential }),
             });
 
             const data = await res.json();
 
             if (res.ok) {
+                console.log('Google signup success:', data);
+
+                // store email in session
+                sessionStorage.setItem('email', data.email);
                 navigate('/complete-setup');
             } else {
                 alert(`Failed to login with Google: ${data.message}`);
