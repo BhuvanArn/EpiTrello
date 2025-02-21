@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const { db } = require('../../config/db');
 const { logger } = require("../../config/logger");
@@ -13,7 +14,8 @@ async function completeSetup(req, res) {
         const result = await client.query('UPDATE "user" SET name = $1, password = $2 WHERE email = $3 RETURNING *', [fullName, hashedPassword, email]);
 
         if (result.rows.length > 0) {
-            res.status(200).send({ message: 'Account setup complete' });
+            const token = jwt.sign({ id: result.rows[0].id, email: result.rows[0].email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            res.status(200).send({ token });
         } else {
             res.status(400).send({ message: 'Failed to complete setup' });
         }
