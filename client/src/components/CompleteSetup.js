@@ -24,8 +24,10 @@ function CompleteSetup() {
             const data = await response.json();
 
             if (response.ok) {
-                alert('Account setup complete');
-                navigate('/login');
+
+                localStorage.setItem('token', data.token);
+                console.log('Setup complete');
+                navigate('/home');
             } else {
                 alert(`Failed to complete setup: ${data.message}`);
             }
