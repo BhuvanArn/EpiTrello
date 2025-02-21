@@ -30,7 +30,11 @@ function Login() {
                 // Store the token in localStorage or state for future use
                 localStorage.setItem('token', data.token);
             } else {
-                alert(`Login failed: ${data.message}`);
+                if (data.message && data.message === 'User not found') {
+                    navigate('/signup');
+                } else {
+                    alert(`Failed to login: ${data.message}`);
+                }
             }
         } catch (error) {
             alert(`Error: ${error.message}`);
@@ -54,9 +58,13 @@ function Login() {
                 // Store the token in localStorage or state for future use
                 localStorage.setItem('token', data.token);
                 console.log('Google login successful');
-                navigate('/');
+                navigate('/home');
             } else {
-                alert(`Failed to login with Google: ${data.message}`);
+                if (data.message && data.message === 'User not found') {
+                    navigate('/signup');
+                } else {
+                    alert(`Failed to login: ${data.message}`);
+                }
             }
         } catch (error) {
             alert(`Error: ${error.message}`);
