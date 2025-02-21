@@ -9,8 +9,7 @@ let { loadedRoutes } = require("./config/router.js");
 let { db } = require("./config/db.js");
 
 const middlewares = [
-    "./middleware/cors.js",
-    "./middleware/RedirectUserNotLogged.js",
+    "./middleware/cors.js"
 ];
 
 const routes = [
@@ -19,6 +18,13 @@ const routes = [
     "./routes/auth/CompleteSetup.js",
     "./routes/auth/VerifyEmail.js",
     "./routes/auth/OAuth/Google.js",
+    "./routes/users.js",
+    "./routes/workspaces.js",
+    "./routes/boards.js",
+    "./routes/lists.js",
+    "./routes/cards.js",
+    "./routes/comments.js",
+    "./routes/star_board.js",
 ];
 
 function loadMiddleware(app)
