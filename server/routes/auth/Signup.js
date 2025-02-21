@@ -4,6 +4,8 @@ const crypto = require('crypto');
 const { db } = require('../../config/db');
 const { logger } = require("../../config/logger");
 
+const generateRandomId = require('../../lib/generateId');
+
 async function signup(req, res) {
     const { email } = req.body;
 
@@ -15,11 +17,13 @@ async function signup(req, res) {
             return res.status(400).send({ message: 'Email already exists' });
         }
 
+        const id = await generateRandomId(client, 'user');
+
         // Generate verification code
         const verificationCode = crypto.randomInt(100000, 999999).toString();
 
         // Save email and code to db, so that we can verify it later
-        await client.query('INSERT INTO "user" (email, verification_code) VALUES ($1, $2)', [email, verificationCode]);
+        await client.query('INSERT INTO "user" (id, email, verification_code) VALUES ($1, $2, $3)', [id, email, verificationCode]);
 
         // Send verification email
         const transporter = nodemailer.createTransport({
