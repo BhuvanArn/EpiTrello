@@ -1,0 +1,250 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.card-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #282E33;
+    border-radius: 8px;
+    outline: 0;
+    box-shadow: 0px 0px 0px 1px #39424a, 0px 8px 12px #0304045C, 0px 0px 1px 1px #03040480;
+    z-index: 1000;
+    width: 500px;
+    padding: 20px;
+}
+
+.card-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #9FADBC;
+    font-weight: bold;
+}
+
+.card-modal-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 1;
+
+    i {
+        font-size: 20px;
+    }
+
+    h2 {
+        font-size: 20px;
+        margin-top: 12px;
+        padding: 4px;
+        flex-grow: 1;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    h2:hover {
+        background-color: #39424a;
+    }
+
+    input {
+        flex-grow: 1;
+        padding: 6px;
+        border: none;
+        border-radius: 4px;
+        background-color: #22272B;
+        color: #B6C2CF;
+        font-size: 20px;
+        font-weight: bold;
+    }
+}
+
+.card-modal-close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #9FADBC;
+
+    border-radius: 4px;
+
+    i {
+        font-size: 25px;
+    }
+
+    transition: background-color 0.2s;
+}
+
+.card-modal-close-button:hover {
+    background-color: #39424a;
+}
+
+.card-modal-content {
+    margin-top: 20px;
+}
+
+
+/* Description part */
+
+
+.card-modal-description {
+    margin-top: 20px;
+    color: #9FADBC;
+}
+
+.card-modal-description i {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.card-modal-description h3 {
+    display: inline;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.add-description-button {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #39424a;
+    color: #9FADBC;
+    border: none;
+    border-radius: 4px;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.add-description-button:hover {
+    background-color: #4a5258;
+}
+
+
+.description-editor {
+    margin-top: 10px;
+}
+
+.description-editor textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    background-color: #22272B;
+    color: #B6C2CF;
+    border: none;
+    border-radius: 4px;
+    resize: none;
+}
+
+.description-editor-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.save-button, .cancel-button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.save-button {
+    background-color: #579DFF;
+    color: #1D2125;
+}
+
+.save-button:hover {
+    background-color: #6FABFF;
+}
+
+.cancel-button {
+    background-color: #39424a;
+    color: #9FADBC;
+}
+
+.cancel-button:hover {
+    background-color: #4a5258;
+}
+
+.description-editor-textarea {
+    color: #B6C2CF;
+}
+
+.w-md-editor-text-input {
+    -webkit-text-fill-color: #B6C2CF;
+}
+
+.wmde-markdown {
+    background-color: #39424A;
+}
+
+
+/* end of Description part */
+
+/* activity part */
+
+.card-modal-activity {
+    margin-top: 20px;
+    color: #9FADBC;
+}
+
+.card-modal-activity i {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.card-modal-activity h3 {
+    display: inline;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+}
+
+
+.activity-grid {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.activity-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.activity-user-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.activity-comment-input {
+    flex-grow: 1;
+    padding: 10px;
+    background-color: #22272B;
+    color: #B6C2CF;
+    border: none;
+    border-radius: 4px;
+    resize: none;
+}
+
+.activity-comment {
+    flex-grow: 1;
+    padding: 10px;
+    background-color: #22272B;
+    color: #B6C2CF;
+    border-radius: 4px;
+}
