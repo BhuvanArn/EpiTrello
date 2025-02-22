@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { fetchUser } from '../utils/api';
 
 const AuthContext = createContext();
 
@@ -9,25 +10,6 @@ const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchUser = async (id, token) => {
-            try {
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/users/${id}`, {
-                    headers: {
-                        Authorization: `${token}`,
-                    },
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    setUser(data);
-                } else {
-                    localStorage.removeItem('token');
-                }
-            } catch (error) {
-                console.error('Error fetching user data:', error);
-                localStorage.removeItem('token');
-            }
-        };
 
         const token = localStorage.getItem('token');
         if (token) {
