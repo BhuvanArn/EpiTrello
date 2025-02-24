@@ -162,16 +162,6 @@ function BoardPage() {
 
         async function fetchCardsOfLists() {
             try {
-                // const updatedLists = await Promise.all(lists.map(async (list) => {
-                //     const response = await fetch(`http://localhost:8000/lists/${list.id}/cards`, {
-                //         headers: {
-                //             'Authorization': `${localStorage.getItem('token')}`
-                //         }
-                //     });
-                //     const cards = await response.json();
-                //     return { ...list, cards: cards.sort((a, b) => a.position - b.position) };
-                // }));
-                // setLists(updatedLists);
                 const response = await fetch(`http://localhost:8000/boards/${boardId}/cards`, {
                     method: 'GET',
                     headers: {
