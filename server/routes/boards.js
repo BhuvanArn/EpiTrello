@@ -106,7 +106,7 @@ module.exports = {
     routes: [
         {
             method: 'post',
-            path: '/create-board',
+            path: '/boards',
             protected: true,
             body: { "title": "text", "visibility": "text", "workspaceId": "text" },
             callback: createBoard
