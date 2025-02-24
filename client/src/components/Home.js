@@ -59,7 +59,7 @@ function HomeContainer(infos) {
                             <li className='sidebar-buttons'>
                                 <a href={'/' + _infos.infos.id + '/boards'}>
                                     <span className='sidebar-icon'>
-                                        <i class="fa-regular fa-pen-to-square"></i>
+                                        <i className="fa-regular fa-pen-to-square"></i>
                                     </span>
                                     <span className='sidebar-text'>Boards</span>
                                 </a>
@@ -67,7 +67,7 @@ function HomeContainer(infos) {
                             <li className='sidebar-buttons'>
                                 <a href='/home'>
                                     <span className='sidebar-icon'>
-                                        <i class="fa-solid fa-clapperboard"></i>
+                                        <i className="fa-solid fa-clapperboard"></i>
                                     </span>
                                     <span className='sidebar-text'>Templates</span>
                                 </a>
@@ -75,7 +75,7 @@ function HomeContainer(infos) {
                             <li className='sidebar-buttons'>
                                 <a href='/home'>
                                     <span className='sidebar-icon'>
-                                        <i class="fa-solid fa-heart-pulse"></i>
+                                        <i className="fa-solid fa-heart-pulse"></i>
                                     </span>
                                     <span className='sidebar-text'>Home</span>
                                 </a>
@@ -89,14 +89,14 @@ function HomeContainer(infos) {
                                 {workspaces.length > 0 ? workspaces.map(workspace => (
                                     <button onClick={() => navigate('/workspace/' + workspace.id)}>
                                         <span className='sidebar-icon'>
-                                            <i class="fa-solid fa-building"></i>
+                                            <i className="fa-solid fa-building"></i>
                                         </span>
                                         <span className='sidebar-text'>{workspace.name}</span>
                                     </button>
                                 )) :
                                     <button onClick={openWorkspaceModal}>
                                         <span className='sidebar-icon'>
-                                            <i class="fa-solid fa-plus"></i>
+                                            <i className="fa-solid fa-plus"></i>
                                         </span>
                                         <span className='sidebar-text'>Create a Workspace</span>
                                     </button>
