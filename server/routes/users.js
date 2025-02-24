@@ -3,7 +3,7 @@ const { logger } = require("../config/logger");
 
 const check_token = require('../lib/checkToken');
 
-async function get_user(req, res) {
+async function getUserById(req, res) {
 
     // middleware part
     if (check_token(req, res) !== 200) {
@@ -18,7 +18,7 @@ async function get_user(req, res) {
         if (result.rows.length > 0) {
             res.status(200).send(result.rows[0]);
         } else {
-            res.status(404).send({ message: 'User not found' });
+            res.status(404).send({ message: 'Not found' });
         }
     } catch (err) {
         logger.write(`Error during user search: ${err.message}`);
@@ -32,9 +32,8 @@ module.exports = {
         {
             method: 'get',
             path: '/users/:id',
-            query: { "id": "text" },
             protected: true,
-            callback: get_user,
+            callback: getUserById
         }
     ]
 }
