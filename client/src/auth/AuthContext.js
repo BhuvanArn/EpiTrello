@@ -5,13 +5,13 @@ import { fetchUser } from '../utils/api';
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-    const [token, setToken] = useState(null);
+    const [_token, setToken] = useState(null);
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
 
-        const token = localStorage.getItem('token');
+        let token = localStorage.getItem('token');
         if (token) {
             setToken(token);
 
@@ -22,8 +22,8 @@ const AuthProvider = ({ children }) => {
             }).join(''));
             const { id } = JSON.parse(jsonPayload);
 
-            fetchUser(id, token).then(() => {
-                localStorage.setItem('userId', id);
+            fetchUser(id, token).then((userData) => {
+                setUser(userData);
                 const authRoutes = ['/login', '/signup', '/complete-setup', '/forgot-password'];
                 if (authRoutes.includes(window.location.pathname)) {
                     navigate('/home');
@@ -42,7 +42,7 @@ const AuthProvider = ({ children }) => {
     }, [navigate]);
 
     return (
-        <AuthContext.Provider value={{ token, user, setUser }}>
+        <AuthContext.Provider value={{ _token, user, setUser }}>
             {children}
         </AuthContext.Provider>
     );

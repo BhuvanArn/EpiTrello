@@ -13,7 +13,7 @@ export const fetchUser = async (id, token) => {
             return data;
         } else {
             localStorage.removeItem('token');
-            throw new Error('Failed to fetch user');
+            throw new Error(response.statusText);
         }
     } catch (error) {
         console.error('Error fetching user data:', error);
