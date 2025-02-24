@@ -115,7 +115,7 @@ function CreateDropdown({ showCreateButton = true, initialWorkspaceId = null }) 
                 }
             }
 
-            const response = await fetch(`http://localhost:8000/create-board`, {
+            const response = await fetch(`http://localhost:8000/boards`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
