@@ -1,4 +1,8 @@
+// env import
 const apiUrl = process.env.REACT_APP_API_URL;
+
+// Utils imports
+const { logError } = require('./logger');
 
 export const fetchUser = async (id, token) => {
     try {
@@ -6,18 +10,17 @@ export const fetchUser = async (id, token) => {
             headers: {
                 Authorization: `${token}`,
             },
+            method: 'GET',
         });
 
         if (response.ok) {
             const data = await response.json();
             return data;
         } else {
-            localStorage.removeItem('token');
             throw new Error(response.statusText);
         }
     } catch (error) {
-        console.error('Error fetching user data:', error);
-        localStorage.removeItem('token');
+        logError(error);
         throw error;
     }
 };
