@@ -17,7 +17,7 @@ function WorkspacePage() {
         // Fetch the workspace data using the workspaceId
         async function fetchWorkspace() {
             try {
-                const response = await fetch(`http://localhost:8000/workspace/${workspaceId}`, {
+                const response = await fetch(`http://localhost:8000/workspaces?` + new URLSearchParams({ id: workspaceId }).toString(), {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

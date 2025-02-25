@@ -28,7 +28,7 @@ function HomeContainer(infos) {
             try {
                 const id = _infos.infos.id;
 
-                const response = await fetch(`http://localhost:8000/my-workspaces/${id}`, {
+                const response = await fetch(`http://localhost:8000/workspaces?` + new URLSearchParams({ userId: id }).toString(), {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

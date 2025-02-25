@@ -20,7 +20,7 @@ function CreateDropdown({ closeModal}) {
     async function createWorkspace() {
         try {
             console.log(user.id);
-            const response = await fetch('http://localhost:8000/create-workspace', {
+            const response = await fetch('http://localhost:8000/workspaces', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
