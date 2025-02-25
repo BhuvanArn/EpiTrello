@@ -27,7 +27,6 @@ async function createWorkspace(req, res) {
     try {
         const client = db.getDB();
         const id = await generateRandomId(client, 'workspace');
-        console.log(ownerId);
 
         const result = await client.query('INSERT INTO "workspace" (id, name, description, owner_id) VALUES ($1, $2, $3, $4) RETURNING *', [id, name, description, ownerId]);
         res.status(201).send(result.rows[0]);
