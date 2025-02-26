@@ -3,6 +3,14 @@ const { logger } = require("../config/logger");
 
 const check_token = require('../lib/checkToken');
 
+/**
+ * Get user by id
+ * Entry point for fetching user by id
+ * @param {*} req - Request must contain an id in the query
+ * @param {*} res
+ * @returns
+ *
+*/
 async function getUserById(req, res) {
 
     // middleware part
@@ -11,7 +19,12 @@ async function getUserById(req, res) {
     }
 
     try {
-        const id = req.params.id;
+        const id = req.query.id;
+
+        if (!id) {
+            return res.status(400).send({ message: 'Bad request' });
+        }
+
         const client = db.getDB();
 
         const result = await client.query('SELECT * FROM "user" WHERE id = $1', [id]);
@@ -31,7 +44,7 @@ module.exports = {
     routes: [
         {
             method: 'get',
-            path: '/users/:id',
+            path: '/users',
             protected: true,
             callback: getUserById
         }

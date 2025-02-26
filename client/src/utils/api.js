@@ -6,7 +6,7 @@ const { logError } = require('./logger');
 
 export const fetchUser = async (id, token) => {
     try {
-        const response = await fetch(`${apiUrl}/users/${id}`, {
+        const response = await fetch(`${apiUrl}/users?` + new URLSearchParams({ id }), {
             headers: {
                 Authorization: `${token}`,
             },
