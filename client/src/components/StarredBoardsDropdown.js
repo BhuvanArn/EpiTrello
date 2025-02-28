@@ -34,7 +34,7 @@ function StarredBoardsDropdown({ closeDropdown }) {
 
         async function fetchStarredBoards() {
             try {
-                const response = await fetch(`http://localhost:8000/${user.id}/starred-boards`, {
+                const response = await fetch(`http://localhost:8000/starboard?` + new URLSearchParams({ userId: user.id }).toString(), {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ function StarredBoardsDropdown({ closeDropdown }) {
 
     const handleUnstarBoard = async (boardId) => {
         try {
-            const response = await fetch('http://localhost:8000/star-board', {
+            const response = await fetch('http://localhost:8000/starboard', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
