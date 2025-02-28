@@ -45,6 +45,10 @@ async function getStarredBoards(req, res) {
     try {
         const userId = req.query.userId;
 
+        if (!userId) {
+            return res.status(400).send({ message: 'Bad request' });
+        }
+
         const client = db.getDB();
         const result = await client.query('SELECT * FROM "starred_boards" WHERE user_id = $1 ', [userId]);
         res.status(200).send(result.rows);
