@@ -37,13 +37,14 @@ async function starBoard(req, res) {
 // It returns an array of board objects that the user has starred
 // The function returns a 200 status code upon success
 async function getStarredBoards(req, res) {
-    const { userId } = req.params;
 
     if (check_token(req, res) !== 200) {
         return res.status(401).send({ message: 'Unauthorized' });
     }
 
     try {
+        const userId = req.query.userId;
+
         const client = db.getDB();
         const result = await client.query('SELECT * FROM "starred_boards" WHERE user_id = $1 ', [userId]);
         res.status(200).send(result.rows);
@@ -58,7 +59,7 @@ module.exports = {
     routes: [
         {
             method: 'post',
-            path: '/star-board',
+            path: '/starboard',
             protected: true,
             body: {
                 "boardId": "text",
@@ -68,7 +69,7 @@ module.exports = {
         },
         {
             method: 'get',
-            path: '/:userId/starred-boards',
+            path: '/starboard',
             protected: true,
             callback: getStarredBoards
         }
