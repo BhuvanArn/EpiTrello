@@ -41,25 +41,6 @@ async function getBoards(req, res) {
     }
 }
 
-async function createBoardFromDropdown(req, res) {
-    const { title, visibility } = req.body;
-
-    if (check_token(req, res) !== 200) {
-        return res.status(401).send({ message: 'Unauthorized' });
-    }
-
-    try {
-        const client = db.getDB();
-        const id = await generateRandomId(client, 'board');
-        const result = await client.query('INSERT INTO "board" (id, title, visibility, workspace_id) VALUES ($1, $2, $3, $4, $5) RETURNING *', [id, title, backgroundColor, visibility, workspaceId]);
-        res.status(201).send(result.rows[0]);
-    } catch (err) {
-        logger.write(`Error creating board: ${err.message}`);
-        logger.log();
-        res.status(500).send({ message: 'Internal server error' });
-    }
-}
-
 async function getBoard(req, res) {
     const boardId = req.params.boardId;
 
@@ -116,13 +97,6 @@ module.exports = {
             path: '/workspaces/:workspaceId/boards',
             protected: true,
             callback: getBoards
-        },
-        {
-            method: 'post',
-            path: '/boards/dropdown',
-            protected: true,
-            body: { "title": "text", "visibility": "text" },
-            callback: createBoardFromDropdown
         },
         {
             method: 'get',
