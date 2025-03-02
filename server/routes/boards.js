@@ -24,13 +24,17 @@ async function createBoard(req, res) {
 }
 
 async function getBoards(req, res) {
-    const workspaceId = req.params.workspaceId;
-
     if (check_token(req, res) !== 200) {
         return res.status(401).send({ message: 'Unauthorized' });
     }
 
     try {
+        const workspaceId = req.query.workspaceId;
+
+        if (!workspaceId || workspaceId.length !== 6) {
+            return res.status(400).send({ message: 'Bad request' });
+        }
+
         const client = db.getDB();
         const result = await client.query('SELECT * FROM "board" WHERE workspace_id = $1', [workspaceId]);
         res.status(200).send(result.rows);
@@ -42,13 +46,18 @@ async function getBoards(req, res) {
 }
 
 async function getBoard(req, res) {
-    const boardId = req.params.boardId;
 
     if (check_token(req, res) !== 200) {
         return res.status(401).send({ message: 'Unauthorized' });
     }
 
     try {
+        const boardId = req.query.boardId;
+
+        if (!boardId || boardId.length !== 6) {
+            return res.status(400).send({ message: 'Bad request' });
+        }
+
         const client = db.getDB();
         const result = await client.query('SELECT * FROM "board" WHERE id = $1', [boardId]);
         res.status(200).send(result.rows[0]);
@@ -60,14 +69,17 @@ async function getBoard(req, res) {
 }
 
 async function updateBoardTitle(req, res) {
-    const boardId = req.params.boardId;
-    const { title } = req.body;
+    const { title, boardId } = req.body;
 
     if (check_token(req, res) !== 200) {
         return res.status(401).send({ message: 'Unauthorized' });
     }
 
     try {
+        if (!title || !boardId || boardId.length !== 6) {
+            return res.status(400).send({ message: 'Bad request' });
+        }
+
         const client = db.getDB();
         const result = await client.query('UPDATE "board" SET title = $1 WHERE id = $2 RETURNING *', [title, boardId]);
 
@@ -83,6 +95,23 @@ async function updateBoardTitle(req, res) {
     }
 }
 
+/**
+ * Redirects to the correct function based on query parameters
+ * @param {Request} req
+ * @param {Response} res
+ * @returns {Promise<void>}
+ * @async
+ */
+async function redirectGetBoards(req, res) {
+    if (req.query.workspaceId) {
+        return getBoards(req, res);
+    }
+    if (req.query.boardId) {
+        return getBoard(req, res);
+    }
+    return res.status(400).send({ message: 'Bad request' });
+}
+
 module.exports = {
     routes: [
         {
@@ -94,21 +123,15 @@ module.exports = {
         },
         {
             method: 'get',
-            path: '/workspaces/:workspaceId/boards',
+            path: '/boards',
             protected: true,
-            callback: getBoards
-        },
-        {
-            method: 'get',
-            path: '/boards/:boardId',
-            protected: true,
-            callback: getBoard
+            callback: redirectGetBoards
         },
         {
             method: 'put',
-            path: '/boards/:boardId',
+            path: '/boards',
             protected: true,
-            body: { "title": "text" },
+            body: { "title": "text", "boardId": "text" },
             callback: updateBoardTitle
         }
     ]
