@@ -4,7 +4,7 @@ function handleOptionsRequests(req, res, next) {
     res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
     res.header("Access-Control-Allow-Credentials", "true");
     if (req.method == "OPTIONS") {
-        res.status(200).send();
+        res.status(204).end();
         return;
     }
     next();
