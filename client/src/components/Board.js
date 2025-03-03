@@ -58,7 +58,7 @@ function BoardPage() {
     useEffect(() => {
         async function fetchBoard() {
             try {
-                const response = await fetch(`http://localhost:8000/boards/${boardId}`, {
+                const response = await fetch(`http://localhost:8000/boards?` + new URLSearchParams({ boardId }).toString(), {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -108,7 +108,7 @@ function BoardPage() {
 
         async function fetchBoardsOfWorkspace() {
             try {
-                const response = await fetch(`http://localhost:8000/workspaces/${workspaceId}/boards`, {
+                const response = await fetch(`http://localhost:8000/boards?` + new URLSearchParams({ workspaceId }).toString(), {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -134,7 +134,7 @@ function BoardPage() {
         async function fetchWorkspaceOfBoard() {
             if (!workspaceId) return;
             try {
-                const response = await fetch(`http://localhost:8000/workspaces? ` + new URLSearchParams({ id: workspaceId }).toString(), {
+                const response = await fetch(`http://localhost:8000/workspaces?` + new URLSearchParams({ id: workspaceId }).toString(), {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -287,13 +287,13 @@ function BoardPage() {
     const handleBoardTitleChange = async (e) => {
         if (e.key === 'Enter') {
             try {
-                const response = await fetch(`http://localhost:8000/boards/${boardId}`, {
+                const response = await fetch(`http://localhost:8000/boards`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `${localStorage.getItem('token')}`
                     },
-                    body: JSON.stringify({ title: board.title })
+                    body: JSON.stringify({ title: board.title, boardId })
                 });
 
                 if (response.ok) {

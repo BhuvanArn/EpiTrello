@@ -38,7 +38,7 @@ function WorkspacePage() {
 
         async function fetchBoards() {
             try {
-                const response = await fetch(`http://localhost:8000/workspaces/${workspaceId}/boards`, {
+                const response = await fetch(`http://localhost:8000/boards?` + new URLSearchParams({ workspaceId }).toString(), {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
