@@ -38,23 +38,6 @@ async function createWorkspace(req, res) {
 }
 
 /**
- * Get workspaces
- * Entry point for fetching workspaces
- * @param {*} req - Request must contain either a userId or an id
- * @param {*} res
- * @returns
- */
-async function getWorkspaces(req, res) {
-    if (req.query.userId) {
-        return getWorkspaceByUserId(req, res);
-    } else if (req.query.id) {
-        return getWorkspaceById(req, res);
-    } else {
-        return res.status(400).send({ message: 'Bad request' });
-    }
-}
-
-/**
  * Get workspaces by user id
  * @param {*} req
  * @param {*} res
@@ -101,6 +84,23 @@ async function getWorkspaceById(req, res) {
         logger.write(`Error fetching workspaces: ${err.message}`);
         logger.log();
         res.status(500).send({ message: 'Internal server error' });
+    }
+}
+
+/**
+ * Get workspaces
+ * Entry point for fetching workspaces
+ * @param {*} req - Request must contain either a userId or an id
+ * @param {*} res
+ * @returns
+ */
+async function getWorkspaces(req, res) {
+    if (req.query.userId) {
+        return getWorkspaceByUserId(req, res);
+    } else if (req.query.id) {
+        return getWorkspaceById(req, res);
+    } else {
+        return res.status(400).send({ message: 'Bad request' });
     }
 }
 
