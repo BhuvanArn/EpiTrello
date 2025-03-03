@@ -44,7 +44,7 @@ async function createWorkspace(req, res) {
  * @returns
  */
 async function getWorkspaceByUserId(req, res) {
-    const userId = req.query.id;
+    const userId = req.query.userId;
 
     // middleware part
     if (check_token(req, res) !== 200) {
