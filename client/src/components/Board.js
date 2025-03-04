@@ -134,7 +134,7 @@ function BoardPage() {
         async function fetchWorkspaceOfBoard() {
             if (!workspaceId) return;
             try {
-                const response = await fetch(`http://localhost:8000/workspaces?` + new URLSearchParams({ id: workspaceId }).toString(), {
+                const response = await fetch(`http://localhost:8000/workspaces/${workspaceId}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
