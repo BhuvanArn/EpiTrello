@@ -69,7 +69,7 @@ async function getWorkspaceByUserId(req, res) {
  * @returns
  */
 async function getWorkspaceById(req, res) {
-    const id = req.query.id;
+    const id = req.params.id;
 
     // middleware part
     if (check_token(req, res) !== 200) {
@@ -77,6 +77,10 @@ async function getWorkspaceById(req, res) {
     }
 
     try {
+
+        if (!id || id.length !== 6) {
+            return res.status(400).send({ message: 'Bad request' });
+        }
         const client = db.getDB();
         const result = await client.query('SELECT * FROM "workspace" WHERE id = $1', [id]);
         res.status(200).send(result.rows);
@@ -97,8 +101,6 @@ async function getWorkspaceById(req, res) {
 async function getWorkspaces(req, res) {
     if (req.query.userId) {
         return getWorkspaceByUserId(req, res);
-    } else if (req.query.id) {
-        return getWorkspaceById(req, res);
     } else {
         return res.status(400).send({ message: 'Bad request' });
     }
@@ -118,6 +120,12 @@ module.exports = {
             path: '/workspaces',
             protected: true,
             callback: getWorkspaces
-        }
+        },
+        {
+            method: 'get',
+            path: '/workspaces/:id',
+            protected: true,
+            callback: getWorkspaceById
+        },
     ]
 }
