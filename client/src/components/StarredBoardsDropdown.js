@@ -15,7 +15,7 @@ function StarredBoardsDropdown({ closeDropdown }) {
     useEffect(() => {
         async function getStarredBoardsName(id) {
             try {
-                const response = await fetch(`http://localhost:8000/boards?` + new URLSearchParams({ boardId: id }).toString(), {
+                const response = await fetch(`http://localhost:8000/boards/${id}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

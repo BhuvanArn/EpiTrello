@@ -58,7 +58,7 @@ function BoardPage() {
     useEffect(() => {
         async function fetchBoard() {
             try {
-                const response = await fetch(`http://localhost:8000/boards?` + new URLSearchParams({ boardId }).toString(), {
+                const response = await fetch(`http://localhost:8000/boards/${boardId}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
