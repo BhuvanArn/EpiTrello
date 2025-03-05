@@ -52,7 +52,7 @@ async function getBoard(req, res) {
     }
 
     try {
-        const boardId = req.query.boardId;
+        const boardId = req.params.boardId;
 
         if (!boardId || boardId.length !== 6) {
             return res.status(400).send({ message: 'Bad request' });
@@ -97,7 +97,7 @@ async function updateBoardTitle(req, res) {
 
 /**
  * Redirects to the correct function based on query parameters
- * @param {Request} req
+ * @param {Request} req - Request must contain a workspaceId in the query
  * @param {Response} res
  * @returns {Promise<void>}
  * @async
@@ -105,9 +105,6 @@ async function updateBoardTitle(req, res) {
 async function redirectGetBoards(req, res) {
     if (req.query.workspaceId) {
         return getBoards(req, res);
-    }
-    if (req.query.boardId) {
-        return getBoard(req, res);
     }
     return res.status(400).send({ message: 'Bad request' });
 }
@@ -126,6 +123,12 @@ module.exports = {
             path: '/boards',
             protected: true,
             callback: redirectGetBoards
+        },
+        {
+            method: 'get',
+            path: '/boards/:boardId',
+            protected: true,
+            callback: getBoard
         },
         {
             method: 'put',
