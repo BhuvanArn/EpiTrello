@@ -26,7 +26,11 @@ async function createList(req, res) {
 }
 
 async function getLists(req, res) {
-    const boardId = req.params.boardId;
+    const boardId = req.query.boardId;
+
+    if (!boardId || boardId.length !== 6) {
+        return res.status(400).send({ message: 'Bad request' });
+    }
 
     if (check_token(req, res) !== 200) {
         return res.status(401).send({ message: 'Unauthorized' });
@@ -72,7 +76,7 @@ module.exports = {
         },
         {
             method: 'get',
-            path: '/boards/:boardId/lists',
+            path: '/lists',
             protected: true,
             callback: getLists
         },

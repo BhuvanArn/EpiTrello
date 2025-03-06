@@ -186,7 +186,7 @@ function BoardPage() {
 
         async function fetchListsOfBoard() {
             try {
-                const response = await fetch(`http://localhost:8000/boards/${boardId}/lists`, {
+                const response = await fetch(`http://localhost:8000/lists?` + new URLSearchParams({ boardId }).toString(), {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
