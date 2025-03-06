@@ -43,7 +43,6 @@ CREATE TABLE IF NOT EXISTS "card"
     title VARCHAR(255) NOT NULL,
     description TEXT,
     list_id VARCHAR(6) REFERENCES "list"(id),
-    board_id VARCHAR(6) REFERENCES "board"(id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     position INTEGER DEFAULT 0
 );

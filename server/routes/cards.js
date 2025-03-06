@@ -20,7 +20,7 @@ async function getLastCardPosition(listId) {
 }
 
 async function createCard(req, res) {
-    const { title, description, listId, boardId } = req.body;
+    const { title, description, listId } = req.body;
 
     if (check_token(req, res) !== 200) {
         return res.status(401).send({ message: 'Unauthorized' });
@@ -33,7 +33,7 @@ async function createCard(req, res) {
 
         const position = await getLastCardPosition(listId);
 
-        const result = await client.query('INSERT INTO "card" (id, title, description, list_id, board_id, position) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [id, title, description, listId, boardId, position]);
+        const result = await client.query('INSERT INTO "card" (id, title, description, list_id, position) VALUES ($1, $2, $3, $4, $5) RETURNING *', [id, title, description, listId, position]);
         res.status(201).send(result.rows[0]);
     } catch (err) {
         logger.write(`Error creating card: ${err.message}`);
@@ -131,7 +131,7 @@ module.exports = {
             method: 'post',
             path: '/cards',
             protected: true,
-            body: { "title": "text", "description": "text", "listId": "text", "boardId": "text" },
+            body: { "title": "text", "description": "text", "listId": "text"},
             callback: createCard
         },
         {
@@ -139,19 +139,6 @@ module.exports = {
             path: '/lists/:listId/cards',
             protected: true,
             callback: getCards
-        },
-        {
-            method: 'get',
-            path: '/boards/:boardId/cards',
-            protected: true,
-            callback: getCardsOfBoard
-        },
-        {
-            method: 'put',
-            path: '/cards/positions',
-            protected: true,
-            body: { "cards": "array" },
-            callback: updateCardPositions
         },
         {
             method: 'put',
