@@ -43,10 +43,15 @@ async function createCard(req, res) {
 }
 
 async function getCards(req, res) {
-    const listId = req.params.listId;
+    const listId = req.query.listId;
+
 
     if (check_token(req, res) !== 200) {
         return res.status(401).send({ message: 'Unauthorized' });
+    }
+
+    if (!listId || listId.length !== 6) {
+        return res.status(400).send({ message: 'Bad request' });
     }
 
     try {
@@ -136,7 +141,7 @@ module.exports = {
         },
         {
             method: 'get',
-            path: '/lists/:listId/cards',
+            path: '/cards',
             protected: true,
             callback: getCards
         },
