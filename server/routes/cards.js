@@ -75,13 +75,40 @@ async function editCard(req, res) {
     try {
         const client = db.getDB();
 
-        // if title is in body, we update else we do nothing.
-        if (req.body.title) {
-            const result = await client.query('UPDATE "card" SET title = $1 WHERE id = $2', [req.body.title, cardId]);
+        let modifString = "";
+        let modifValues = [];
+
+        if (req.body.newTitle) {
+            modifString += 'title = $1';
+            modifValues.push(req.body.newTitle);
         }
-        if (req.body.description) {
-            const result = await client.query('UPDATE "card" SET description = $1 WHERE id = $2', [req.body.description, cardId]);
+        if (req.body.newDescription) {
+            if (modifString.length > 0) {
+                modifString += ', ';
+                modifString += 'description = $2';
+            } else {
+                modifString += 'description = $1';
+            }
+            modifValues.push(req.body.newDescription);
         }
+        if (req.body.newPosition) {
+            if (modifString.length > 0 && modifString.endsWith('2')) {
+                modifString += ', ';
+                modifString += 'position = $3';
+            } else if (modifString.length > 0) {
+                modifString += ', ';
+                modifString += 'position = $2';
+            } else {
+                modifString += 'position = $1';
+            }
+            modifValues.push(req.body.newPosition.toString());
+        }
+
+        await client.query(`UPDATE "card" SET ${modifString} WHERE id = $${modifValues.length + 1}`, [...modifValues, cardId]);
+
+        logger.write(`Card ${cardId} updated successfully with ${modifString}`);
+        logger.log();
+
         res.status(200).send({ message: 'Card updated successfully' });
     } catch (err) {
         logger.write(`Error updating card: ${err.message}`);
@@ -109,7 +136,7 @@ module.exports = {
             method: 'put',
             path: '/cards',
             protected: true,
-            body: { "title": "text", "cardId": "text", "description": "text" },
+            body: { "cardId": "text", "newTitle": "text", "newDescription": "text", "newPosition": "number" },
             callback: editCard
         }
     ]
