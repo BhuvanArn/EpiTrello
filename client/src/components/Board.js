@@ -162,23 +162,30 @@ function BoardPage() {
 
         async function fetchCardsOfLists() {
             try {
-                const response = await fetch(`http://localhost:8000/boards/${boardId}/cards`, {
+                const response = lists.map(list => fetch(`http://localhost:8000/cards?` + new URLSearchParams({ listId: list.id }).toString(), {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `${localStorage.getItem('token')}`
                     }
-                });
+                }));
 
-                if (response.ok) {
-                    const data = await response.json();
+                const allRes = await Promise.all(response);
+
+
+                await Promise.all(allRes.map(eachRes => {
+                    if (!eachRes.ok) {
+                        console.error(eachRes);
+                        return {};
+                    }
+                    const dataJson = eachRes.json();
+
                     setLists(prevLists => prevLists.map(list => ({
                         ...list,
-                        cards: data.filter(card => card.list_id === list.id).sort((a, b) => a.position - b.position)
+                        cards: dataJson.filter(card => card.list_id === list.id).sort((a, b) => a.position - b.position)
                     })));
-                } else {
-                    console.error(response);
-                }
+                    return dataJson;
+                }));
             } catch (error) {
                 console.error(error);
             }
@@ -267,7 +274,7 @@ function BoardPage() {
                     'Content-Type': 'application/json',
                     'Authorization': `${localStorage.getItem('token')}`
                 },
-                body: JSON.stringify({ title: newCardTitle, listId, boardId })
+                body: JSON.stringify({ title: newCardTitle, listId, description: '' })
             });
 
             if (response.ok) {
@@ -391,16 +398,18 @@ function BoardPage() {
 
     const updateCardPositions = async (cards) => {
         try {
-            await fetch(`http://localhost:8000/cards/positions`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify({
-                    cards: cards.map(card => ({ id: card.id, position: card.position, list_id: card.list_id }))
-                })
+            const promiseArray = cards.map(card => {
+                return fetch(`http://localhost:8000/cards`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({ newPosition: card.position, cardId: card.id })
+                });
             });
+
+            await Promise.all(promiseArray);
         } catch (error) {
             console.error('Error updating card positions:', error);
         }
