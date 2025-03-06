@@ -65,46 +65,6 @@ async function getCards(req, res) {
     }
 }
 
-async function getCardsOfBoard(req, res) {
-    const boardId = req.params.boardId;
-
-    if (check_token(req, res) !== 200) {
-        return res.status(401).send({ message: 'Unauthorized' });
-    }
-
-    try {
-        const client = db.getDB();
-        const result = await client.query('SELECT * FROM "card" WHERE board_id = $1', [boardId]);
-        res.status(200).send(result.rows);
-    } catch (err) {
-        logger.write(`Error fetching cards: ${err.message}`);
-        logger.log();
-        res.status(500).send({ message: 'Internal server error' });
-    }
-}
-
-async function updateCardPositions(req, res) {
-    const { cards } = req.body;
-
-    if (check_token(req, res) !== 200) {
-        return res.status(401).send({ message: 'Unauthorized' });
-    }
-
-    try {
-        const client = db.getDB();
-        const queries = cards.map(card => {
-            return client.query('UPDATE "card" SET position = $1, list_id = $2 WHERE id = $3', [card.position, card.list_id, card.id]);
-        });
-
-        await Promise.all(queries);
-        res.status(200).send({ message: 'Card positions updated successfully' });
-    } catch (err) {
-        logger.write(`Error updating card positions: ${err.message}`);
-        logger.log();
-        res.status(500).send({ message: 'Internal server error' });
-    }
-}
-
 async function editCard(req, res) {
     const { cardId } = req.body;
 
