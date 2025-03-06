@@ -33,13 +33,13 @@ function CardModal({ card, closeModal }) {
     const handleTitleKeyDown = async (e) => {
         if (e.key === 'Enter') {
             try {
-                const response = await fetch(`http://localhost:8000/cards/`, {
+                const response = await fetch(`http://localhost:8000/cards`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `${localStorage.getItem('token')}`
                     },
-                    body: JSON.stringify({ title: newTitle, cardId: card.id })
+                    body: JSON.stringify({ newTitle, cardId: card.id })
                 });
 
                 if (response.ok) {
@@ -55,13 +55,13 @@ function CardModal({ card, closeModal }) {
 
     const handleSaveDescription = async () => {
         try {
-            const response = await fetch(`http://localhost:8000/cards/`, {
+            const response = await fetch(`http://localhost:8000/cards`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `${localStorage.getItem('token')}`
                 },
-                body: JSON.stringify({ description: newDescription, cardId: card.id })
+                body: JSON.stringify({ newDescription, cardId: card.id })
             });
 
             if (response.ok) {
