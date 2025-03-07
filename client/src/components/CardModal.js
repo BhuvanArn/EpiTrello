@@ -83,7 +83,7 @@ function CardModal({ card, closeModal }) {
                     'Content-Type': 'application/json',
                     'Authorization': `${localStorage.getItem('token')}`
                 },
-                body: JSON.stringify({ text: newComment, cardId: card.id, creatorId: user.id })
+                body: JSON.stringify({ content: newComment, cardId: card.id, creatorId: user.id })
             });
 
             if (response.ok) {
