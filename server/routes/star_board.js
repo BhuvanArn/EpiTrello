@@ -1,5 +1,6 @@
 const { db } = require('../config/db');
 const { logger } = require("../config/logger");
+
 const check_token = require('../lib/checkToken');
 
 // This function is called when a user stars or unstars a board
@@ -9,10 +10,15 @@ const check_token = require('../lib/checkToken');
 // If the row does not exist, it is added
 // The function returns a 200 status code upon success
 async function starBoard(req, res) {
-    const { boardId, userId } = req.body;
+    const { userId } = req.body;
+    const boardId = req.params.boardId;
 
     if (check_token(req, res) !== 200) {
         return res.status(401).send({ message: 'Unauthorized' });
+    }
+
+    if (!userId || !boardId || boardId.length !== 6) {
+        return res.status(400).send({ message: 'Bad request' });
     }
 
     try {
@@ -43,7 +49,7 @@ async function getStarredBoards(req, res) {
     }
 
     try {
-        const userId = req.query.userId;
+        const userId = req.params.userId;
 
         if (!userId) {
             return res.status(400).send({ message: 'Bad request' });
@@ -63,17 +69,16 @@ module.exports = {
     routes: [
         {
             method: 'post',
-            path: '/starboard',
+            path: '/boards/:boardId/star',
             protected: true,
             body: {
-                "boardId": "text",
                 "userId": "text"
             },
             callback: starBoard
         },
         {
             method: 'get',
-            path: '/starboard',
+            path: '/users/:userId/starred_boards',
             protected: true,
             callback: getStarredBoards
         }
