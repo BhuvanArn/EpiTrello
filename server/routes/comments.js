@@ -5,7 +5,7 @@ const generateRandomId = require('../lib/generateId');
 const check_token = require('../lib/checkToken');
 
 async function createComment(req, res) {
-    const { text, cardId, creatorId } = req.body;
+    const { content, cardId, creatorId } = req.body;
 
     if (check_token(req, res) !== 200) {
         return res.status(401).send({ message: 'Unauthorized' });
@@ -16,7 +16,7 @@ async function createComment(req, res) {
 
         const id = await generateRandomId(client, 'comment');
 
-        const result = await client.query('INSERT INTO "comment" (id, text, card_id, creator_id) VALUES ($1, $2, $3, $4) RETURNING *', [id, text, cardId, creatorId]);
+        const result = await client.query('INSERT INTO "comment" (id, content, card_id, creator_id) VALUES ($1, $2, $3, $4) RETURNING *', [id, content, cardId, creatorId]);
         res.status(201).send(result.rows[0]);
     } catch (err) {
         logger.write(`Error creating comment: ${err.message}`);
@@ -49,7 +49,7 @@ module.exports = {
             method: 'post',
             path: '/comments',
             protected: true,
-            body: { "text": "text", "cardId": "text", "creatorId": "text" },
+            body: { "content": "text", "cardId": "text", "creatorId": "text" },
             callback: createComment
         },
         {

@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS "card"
 CREATE TABLE IF NOT EXISTS "comment"
 (
     id VARCHAR(6) PRIMARY KEY,
-    text TEXT NOT NULL,
+    content TEXT NOT NULL,
     card_id VARCHAR(6) REFERENCES "card"(id),
     creator_id VARCHAR(6) REFERENCES "user"(id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
