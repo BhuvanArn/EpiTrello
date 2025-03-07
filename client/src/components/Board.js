@@ -162,7 +162,7 @@ function BoardPage() {
 
         async function fetchCardsOfLists() {
             try {
-                const response = lists.map(list => fetch(`http://localhost:8000/cards?` + new URLSearchParams({ listId: list.id }).toString(), {
+                const response = lists.map(list => fetch(`http://localhost:8000/lists/${list.id}/cards`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

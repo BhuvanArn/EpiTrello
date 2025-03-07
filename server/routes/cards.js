@@ -43,7 +43,7 @@ async function createCard(req, res) {
 }
 
 async function getCards(req, res) {
-    const listId = req.query.listId;
+    const listId = req.params.listId;
 
 
     if (check_token(req, res) !== 200) {
@@ -128,7 +128,7 @@ module.exports = {
         },
         {
             method: 'get',
-            path: '/cards',
+            path: '/lists/:listId/cards',
             protected: true,
             callback: getCards
         },
