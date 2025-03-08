@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import '../assets/css/Home.css';
 
@@ -13,6 +14,7 @@ function HomeContainer(infos) {
     const [workspaces, setWorkspaces] = useState([]);
     const [workspaceModalOpen, setWorkspaceModalOpen] = useState(false);
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const openWorkspaceModal = () => {
         setWorkspaceModalOpen(true);
@@ -61,7 +63,7 @@ function HomeContainer(infos) {
                                     <span className='sidebar-icon'>
                                         <i className="fa-regular fa-pen-to-square"></i>
                                     </span>
-                                    <span className='sidebar-text'>Boards</span>
+                                    <span className='sidebar-text'>{t('boards')}</span>
                                 </a>
                             </li>
                             <li className='sidebar-buttons'>
@@ -69,7 +71,7 @@ function HomeContainer(infos) {
                                     <span className='sidebar-icon'>
                                         <i className="fa-solid fa-clapperboard"></i>
                                     </span>
-                                    <span className='sidebar-text'>Templates</span>
+                                    <span className='sidebar-text'>{t('templates')}</span>
                                 </a>
                             </li>
                             <li className='sidebar-buttons'>
@@ -77,12 +79,12 @@ function HomeContainer(infos) {
                                     <span className='sidebar-icon'>
                                         <i className="fa-solid fa-heart-pulse"></i>
                                     </span>
-                                    <span className='sidebar-text'>Home</span>
+                                    <span className='sidebar-text'>{t('home')}</span>
                                 </a>
                             </li>
                         </ul>
                         <p className='sidebar-title'>
-                            Workspaces
+                            {t('workspaces')}
                         </p>
                         <ul className='sidebar-workspaces'>
                             <li className='sidebar-buttons' key={0}>
@@ -98,7 +100,7 @@ function HomeContainer(infos) {
                                         <span className='sidebar-icon'>
                                             <i className="fa-solid fa-plus"></i>
                                         </span>
-                                        <span className='sidebar-text'>Create a Workspace</span>
+                                        <span className='sidebar-text'>{t('create_workspace')}</span>
                                     </button>
                                 }
                             </li>
@@ -110,10 +112,10 @@ function HomeContainer(infos) {
                         <img src={image_svg} alt='Home' className='svg-header' />
                         <div className='home-main-content-body'>
                             <span className='home-main-content-title'>
-                                Stay on track and up to date
+                                {t('stay_on_track')}
                             </span>
                             <span className='home-main-content-subtitle'>
-                                Invite people to boards and cards, leave comments, add due dates, and we'll show the most important activity here.
+                                {t('invite_people')}
                             </span>
                         </div>
 
