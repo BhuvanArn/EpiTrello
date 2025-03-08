@@ -1,16 +1,18 @@
-//---    TEMPORARY COMMENTS    ---//
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
 
+// translations
+import enJSON from './locales/en.json';
 
-// import i18n from "i18next";
-// import { initReactI18next } from "react-i18next";
+i18n.use(initReactI18next).init({
+    resources: {
+        en: { translation: enJSON },
+    },
+    lng: "en",
+    fallbackLng: "en",
+    interpolation: {
+        escapeValue: false,
+    },
+});
 
-
-
-// import enJSON from './locales/en.json'
-
-// i18n.use(initReactI18next).init({
-//   resources: {
-//     en: { ...enJSON },
-//   },
-//   lng: "en",
-//  });
+export default i18n;
