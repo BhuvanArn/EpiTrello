@@ -13,6 +13,7 @@ import ForgotPassword from './components/ForgotPassword';
 import CompleteSetup from './components/CompleteSetup';
 import WorkspacePage from './components/Workspace';
 import BoardPage from './components/Board';
+import SettingsPage from './components/Settings';
 
 // Auth Context
 import { AuthProvider } from './auth/AuthContext';
@@ -33,6 +34,7 @@ function App() {
                     <Route path="/home" element={<Main />} />
                     <Route path="/workspace/:workspaceId" element={<WorkspacePage />} />
                     <Route path="/board/:boardId" element={<BoardPage />} />
+                    <Route path="/settings" element={<SettingsPage />} />
                 </Routes>
             </AnimatePresence>
             {/* {location.pathname === '/' && <Footer />} Conditionally render the Footer */}

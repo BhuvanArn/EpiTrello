@@ -1,0 +1,9 @@
+.main-page {
+  position: relative;
+  z-index: 0;
+  height: 100vh;
+}
+
+.main-page-dark {
+  background-color: rgb(29, 33, 37);
+}
