@@ -8,6 +8,8 @@ import '../assets/css/Signup.css';
 
 import logo from '../img/trello.png';
 
+const VITE_GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
 function Signup() {
     const [email, setEmail] = useState('');
     const [verificationCode, setVerificationCode] = useState('');
@@ -95,7 +97,7 @@ function Signup() {
     };
 
     return (
-        <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+        <GoogleOAuthProvider clientId={VITE_GOOGLE_CLIENT_ID}>
             <div className="signup-page">
                 <div className="signup-form-container">
                     <div className="signup-logo-container">

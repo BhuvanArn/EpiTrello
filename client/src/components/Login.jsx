@@ -8,6 +8,10 @@ import '../assets/css/Login.css';
 
 import logo from '../img/trello.png'; // logo
 
+// Environment variables
+const VITE_GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+const VITE_API_URL = import.meta.env.VITE_API_URL;
+
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -43,7 +47,7 @@ function Login() {
 
     const handleGoogleLoginSuccess = async (response) => {
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_URL}/google-login`, {
+            const res = await fetch(`${VITE_API_URL}/google-login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -77,7 +81,7 @@ function Login() {
     };
 
     return (
-        <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+        <GoogleOAuthProvider clientId={VITE_GOOGLE_CLIENT_ID}>
             <div className="login-page">
                 <div className="login-form-container">
                     <div className="login-header">
