@@ -31,7 +31,7 @@ SERVER_PORT=your_server_port
 In the client directory, you must have a `.env` file with the following content:
 
 ```markdown
-REACT_APP_API_URL=the_url_of_your_server
+VITE_API_URL=the_url_of_your_server
 PORT=your_client_port
 
 <!-- secrets vars -->
