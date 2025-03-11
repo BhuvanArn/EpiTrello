@@ -37,7 +37,6 @@ function App() {
                     <Route path="/settings" element={<SettingsPage />} />
                 </Routes>
             </AnimatePresence>
-            {/* {location.pathname === '/' && <Footer />} Conditionally render the Footer */}
         </AuthProvider>
     );
 }
