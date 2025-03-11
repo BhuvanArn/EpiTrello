@@ -1,8 +1,7 @@
-// env import
-const apiUrl = process.env.REACT_APP_API_URL;
+import { logError } from './logger';
 
-// Utils imports
-const { logError } = require('./logger');
+// env import
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export const fetchUser = async (id, token) => {
     try {
